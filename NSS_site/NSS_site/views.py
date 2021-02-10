@@ -15,3 +15,6 @@ def login(request):
         MyLoginForm = Loginform()
 		
     return render(request, 'loggedin.html', {"username" : username})
+
+def form(request):
+    return render(request, 'form.html')
