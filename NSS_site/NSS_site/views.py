@@ -1,6 +1,8 @@
 from NSS_site.forms import LoginForm
 from django.shortcuts import render
-
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 def login(request):
     username = "not logged in"
@@ -16,5 +18,17 @@ def login(request):
 		
     return render(request, 'loggedin.html', {"username" : username})
 
+@csrf_exempt
 def form(request):
-    return render(request, 'form.html')
+    formData = {}
+    if request.method == 'POST':
+        print("Ajax request recieved")
+        formData = json.loads(request.POST['formData'])
+        firstName = formData['firstName']
+        lastName = formData['lastName']
+        return JsonResponse({
+            'out_string': 'out_string_test',
+            'formData': formData,
+        })
+    else:
+        return render(request, 'form.html')
