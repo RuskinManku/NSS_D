@@ -1,20 +1,22 @@
-$(document).ready(function () {
+$("#submitbtn").click(function () {
     let firstName, lastName;
     console.log("Start");
-    $("#almostDone").click(function() {
-        $("#confirmationBox").hide();
-        firstName = $("first_name").val();
-        lastName = $("last_name").val();
-    })
-
+    firstName = $("#first_name").val();
+    lastName = $("#last_name").val();
+    address = $("#address").val();
+    contact = $("#contact").val();
+    items = $("#items").val();
     const formData = {
         "firstName": firstName,
-        "lastName": lastName
+        "lastName": lastName,
+        "address": address,
+        "contact": contact,
+        "items": items,
     };
 
     $.ajax({
         type: "POST",
-        url: "placeholder",
+        url: "submitrequest/",
         dataType: "json",
         data: {
             'formData': JSON.stringify(formData),
