@@ -23,6 +23,8 @@ urlpatterns = [
     path('connection/',TemplateView.as_view(template_name = 'login.html'),name='connection'),
     path('login/', views.login, name='login'),
     path('form/', views.form, name='form'),
-    path('form/submitrequest/', views.submitData, name='submitrequest'),
-    
+    path('submitrequest/', views.submitData, name='submitrequest'),
+    path('success/', views.success, name='success'),
+    path('list/', views.list, name='list'),
+    path('details/', views.details, name='details'),
 ]

@@ -1,6 +1,6 @@
 $("#submitbtn").click(function () {
     let firstName, lastName;
-    console.log("Start");
+    console.log("Ajax request received");
     firstName = $("#first_name").val();
     lastName = $("#last_name").val();
     address = $("#address").val();
@@ -16,18 +16,20 @@ $("#submitbtn").click(function () {
 
     $.ajax({
         type: "POST",
-        url: "submitrequest/",
+        url: "/submitrequest/",
         dataType: "json",
         data: {
             'formData': JSON.stringify(formData),
             id: $(this).val()
         },
         beforeSend : () => {},
-        success: (result) => {
-            console.log(JSON.stringify(result));
+        success: (data, _textStatus) => {
+            console.log("Sucess!!")
+            console.log(data)
+            window.location.href = data.redirect;
         },
         error: (result) => {
-            console.log(JSON.stringify(result));
+            // console.log(JSON.stringify(result));
             alert('Server Error!');
         },
         complete: () => {

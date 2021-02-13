@@ -1,7 +1,7 @@
 from django.views.decorators import csrf
 from NSS_site.forms import LoginForm
-from django.shortcuts import render
-from django.http.response import JsonResponse
+from django.shortcuts import redirect, render, get_object_or_404
+from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import DonationRequest
 import json
@@ -31,21 +31,35 @@ def submitData(request):
         print("Ajax request recieved")
         formData = json.loads(request.POST['formData'])
         print(formData)
-        firstName = formData['firstName']
-        lastName = formData['lastName']
-        address = formData['address']
-        contact = formData['contact']
-        items = formData['items']
+        try:
+            firstName = formData['firstName']
+            lastName = formData['lastName']
+            address = formData['address']
+            contact = formData['contact']
+            items = formData['items']
+        except:
+            print("Invalid Data Received")
 
         req = DonationRequest(first_name = firstName, last_name = lastName, address = address, phone_number = contact, items = items)
         req.save()
         print("Request saved")
-
         
-
-        return JsonResponse({
-            'out_string': 'out_string_test',
+        response = JsonResponse({
             'formData': formData,
+            'message': "Form submitted successfully",
+            'redirect': '/success/'
         })
-    else:
-        return render(request, 'form.html')
+        return response
+    # return redirect('/success/')
+
+def success(request):
+    return render(request, 'success.html')
+
+def list(request):
+    donation_request_list = DonationRequest.objects.order_by('-time_of_request')
+    context = {'donation_request_list': donation_request_list }
+    return render(request, 'list.html', context)
+
+def details(request, request_id_no):
+    req = get_object_or_404(DonationRequest, id_no=request_id_no)
+    return render(request, 'details.html', {'donation_request':req})
