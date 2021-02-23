@@ -3,6 +3,7 @@ from NSS_site.forms import LoginForm
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.admin.views.decorators import staff_member_required
 from .models import DonationRequest
 import json
 
@@ -55,11 +56,16 @@ def submitData(request):
 def success(request):
     return render(request, 'success.html')
 
+@staff_member_required
 def list(request):
     donation_request_list = DonationRequest.objects.order_by('-time_of_request')
     context = {'donation_request_list': donation_request_list }
     return render(request, 'list.html', context)
 
-def details(request, request_id_no):
-    req = get_object_or_404(DonationRequest, id_no=request_id_no)
+@staff_member_required
+def details(request, id_no):
+    req = get_object_or_404(DonationRequest, id_no=id_no)
     return render(request, 'details.html', {'donation_request':req})
+
+def index(request):
+    return render(request, 'index.html')

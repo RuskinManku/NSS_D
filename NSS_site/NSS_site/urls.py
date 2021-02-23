@@ -19,6 +19,7 @@ from NSS_site import views
 from django.views.generic import TemplateView
 
 urlpatterns = [
+    path('', views.index, name='index'),
     path('admin/', admin.site.urls, name = 'admin'),
     path('connection/',TemplateView.as_view(template_name = 'login.html'),name='connection'),
     path('login/', views.login, name='login'),
@@ -26,5 +27,5 @@ urlpatterns = [
     path('submitrequest/', views.submitData, name='submitrequest'),
     path('success/', views.success, name='success'),
     path('list/', views.list, name='list'),
-    path('details/', views.details, name='details'),
+    path('details/<int:id_no>/', views.details, name='details'),
 ]
