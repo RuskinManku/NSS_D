@@ -37,3 +37,43 @@ $("#submitbtn").click(function () {
         }
     })
 })
+
+$("#volunteer_submitbtn").click(function () {
+    let firstName, lastName;
+    console.log("Ajax request received (volunteer)");
+    firstName = $("#first_name").val();
+    lastName = $("#last_name").val();
+    idno = $("#idno").val();
+    contact = $("#contact").val();
+    calendly_link = $("#calendly_link").val();
+    const formData = {
+        "firstName": firstName,
+        "lastName": lastName,
+        "idno": idno,
+        "contact": contact,
+        "calendly_link": calendly_link,
+    };
+
+    $.ajax({
+        type: "POST",
+        url: "/volunteer_submitrequest/",
+        dataType: "json",
+        data: {
+            'formData': JSON.stringify(formData),
+            id: $(this).val()
+        },
+        beforeSend : () => {},
+        success: (data, _textStatus) => {
+            console.log("Sucess!!")
+            console.log(data)
+            window.location.href = data.redirect;
+        },
+        error: (result) => {
+            // console.log(JSON.stringify(result));
+            alert('Server Error!');
+        },
+        complete: () => {
+            console.log("Ajax request completed");
+        }
+    })
+})

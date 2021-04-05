@@ -24,8 +24,11 @@ urlpatterns = [
     path('connection/',TemplateView.as_view(template_name = 'login.html'),name='connection'),
     path('login/', views.login, name='login'),
     path('form/', views.form, name='form'),
-    path('submitrequest/', views.submitData, name='submitrequest'),
+    path('submitrequest/', views.submitData, name='submitRequest'),
     path('success/', views.success, name='success'),
     path('list/', views.list, name='list'),
     path('details/<int:id_no>/', views.details, name='details'),
+    path('volunteer_signup/', views.volunteerSignup, name='volunteerSignup'),
+    path('volunteer_submitrequest/', views.volunteerSubmitData, name='volunteerSubmitData'),
+    path('volunteer_signup_success/', views.volunteerSuccess, name='volunteerSuccess'),
 ]
