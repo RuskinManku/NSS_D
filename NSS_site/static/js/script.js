@@ -45,15 +45,23 @@ $("#volunteer_submitbtn").click(function () {
     lastName = $("#last_name").val();
     idno = $("#idno").val();
     contact = $("#contact").val();
-    calendly_link = $("#calendly_link").val();
+    date = $("#pickdate").val();
+    starttime = $("#starttime").val();
+    endtime = $("#endtime").val();
+    // date = $("#pickdate").val().toString();
+    // starttime = $("#starttime").val().toString();
+    // endtime = $("#endtime").val().toString();
+    // calendly_link = $("#calendly_link").val();
     const formData = {
         "firstName": firstName,
         "lastName": lastName,
         "idno": idno,
         "contact": contact,
-        "calendly_link": calendly_link,
+        "date": date,
+        "starttime": starttime,
+        "endtime": endtime,
     };
-
+    console.log(formData);
     $.ajax({
         type: "POST",
         url: "/volunteer_submitrequest/",
@@ -66,7 +74,7 @@ $("#volunteer_submitbtn").click(function () {
         success: (data, _textStatus) => {
             console.log("Sucess!!")
             console.log(data)
-            window.location.href = data.redirect;
+            // window.location.href = data.redirect;
         },
         error: (result) => {
             // console.log(JSON.stringify(result));

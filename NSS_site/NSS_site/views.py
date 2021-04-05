@@ -64,11 +64,15 @@ def volunteerSubmitData(request):
             lastName = formData['lastName']
             idno = formData['idno']
             contact = formData['contact']
-            calendly_link = formData['calendly_link']
+            date = formData['date']
+            startTime = formData['starttime']
+            endTime = formData['endtime']
+            print(startTime, endTime)
+            # calendly_link = formData['calendly_link']
         except:
             print("Invalid Data Received")
 
-        req = Volunteer(first_name = firstName, last_name = lastName, idno = idno, phone_number = contact, calendly_link = calendly_link)
+        req = Volunteer(first_name = firstName, last_name = lastName, idno = idno, phone_number = contact, date=date, start_time=startTime, end_time=endTime)
         req.save()
         print("Request saved")
         

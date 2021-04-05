@@ -26,6 +26,9 @@ class Volunteer(models.Model):
     phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
     calendly_link = models.CharField(max_length=500)
     signup_time = models.DateTimeField(default=now)
+    date = models.CharField(max_length=50)
+    start_time = models.CharField(max_length=50)
+    end_time = models.CharField(max_length=50)
 
     def __str__(self):
         s = self.volunteer_id
