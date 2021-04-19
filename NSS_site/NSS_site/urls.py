@@ -33,4 +33,5 @@ urlpatterns = [
     path('vslots_list/', views.listVolunteerSlots, name='listVolunteerSlots'),
     path('volunteer_submitrequest/', views.volunteerSubmitData, name='volunteerSubmitData'),
     path('volunteer_signup_success/', views.volunteerSuccess, name='volunteerSuccess'),
+    path('volunteer_slots/', views.listVolunteerSlots, name='listVolunteerSlots'),
 ]
