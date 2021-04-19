@@ -97,6 +97,10 @@ def list(request):
     return render(request, 'list.html', context)
 
 @staff_member_required
+def volunteerPage(request):
+    return render(request, 'volunteer_page.html')
+
+@staff_member_required
 def details(request, id_no):
     req = get_object_or_404(DonationRequest, id_no=id_no)
     return render(request, 'details.html', {'donation_request':req})

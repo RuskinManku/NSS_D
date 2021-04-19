@@ -28,6 +28,7 @@ urlpatterns = [
     path('success/', views.success, name='success'),
     path('list/', views.list, name='list'),
     path('details/<int:id_no>/', views.details, name='details'),
+    path('volunteer_page/', views.volunteerPage, name='volunteerPage'),
     path('volunteer_signup/', views.volunteerSignup, name='volunteerSignup'),
     path('volunteer_submitrequest/', views.volunteerSubmitData, name='volunteerSubmitData'),
     path('volunteer_signup_success/', views.volunteerSuccess, name='volunteerSuccess'),
