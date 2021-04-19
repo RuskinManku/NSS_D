@@ -119,3 +119,8 @@ def index(request):
 
 def volunteerSignup(request):
     return render(request, 'volunteer_signup.html')
+
+
+def listVolunteerSlots(request):
+    slots = VolunteerSlot.objects.filter('start_time__gte'==datetime.now())
+    return JsonResponse(slots)
