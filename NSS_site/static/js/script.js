@@ -72,9 +72,8 @@ $("#volunteer_submitbtn").click(function () {
         },
         beforeSend : () => {},
         success: (data, _textStatus) => {
-            console.log("Sucess!!")
-            console.log(data)
-            // window.location.href = data.redirect;
+            alert(`Dear ${formData["firstName"]},\nYour slot details have been registered successfully.`)
+            window.location.href = redirectSite;
         },
         error: (result) => {
             // console.log(JSON.stringify(result));

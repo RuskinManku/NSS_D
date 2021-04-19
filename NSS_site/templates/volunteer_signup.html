@@ -51,13 +51,15 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12 l8 offset-l2">
-                            <input type="text" id="contact" class="vaildate">
+                            <input type="tel" id="contact" class="vaildate">
                             <label for="contact">Contact Number</label>
                         </div>
                     </div>
+
                     
-                    <div class="row offset-l2">
-                        <div class="input-field col s6 l4">
+                    
+                    <div class="row">
+                        <div class="input-field col s6 l4 offset-l2">
                             <input id="pickdate" type="text" class="datepicker mywoo">
                             <label for="pickdate">Pick Date</label>
                         </div>
@@ -69,6 +71,7 @@
                             <input id="endtime" type="text" class="timepicker mywoo">
                             <label for="endTime">Pick End Time</label>
                         </div>
+
                     </div>
 
                     <div class="row">
@@ -86,6 +89,8 @@
     <script src="{% static 'js/script.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
+
+        var redirectSite = "{% url 'volunteerPage' %}"
 
         document.addEventListener('DOMContentLoaded', function () { 
             

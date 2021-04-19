@@ -4,8 +4,18 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.admin.views.decorators import staff_member_required
-from .models import DonationRequest, Volunteer
+from .models import DonationRequest, VolunteerSlot
+
+from datetime import datetime
 import json
+
+
+def getDateTimeFromString(dateStr, timeStr):
+    datetimeString = dateStr + ' ' + timeStr
+    print(f'datetimeString : {datetimeString}')
+    out = datetime.strptime(datetimeString, "%b %d, %Y %I:%M %p")
+    print(f'Strifed : {out}')
+    return out
 
 def login(request):
     username = "not logged in"
@@ -65,14 +75,13 @@ def volunteerSubmitData(request):
             idno = formData['idno']
             contact = formData['contact']
             date = formData['date']
-            startTime = formData['starttime']
-            endTime = formData['endtime']
-            print(startTime, endTime)
+            startTime = getDateTimeFromString(date, formData['starttime'])
+            endTime = getDateTimeFromString(date, formData['endtime'])
             # calendly_link = formData['calendly_link']
         except:
             print("Invalid Data Received")
 
-        req = Volunteer(first_name = firstName, last_name = lastName, idno = idno, phone_number = contact, date=date, start_time=startTime, end_time=endTime)
+        req = VolunteerSlot(first_name = firstName, last_name = lastName, idno = idno, phone_number = contact, start_time=startTime, end_time=endTime)
         req.save()
         print("Request saved")
         

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import DonationRequest, Volunteer
+from .models import DonationRequest, VolunteerSlot
 
 admin.site.register(DonationRequest)
-admin.site.register(Volunteer)
+admin.site.register(VolunteerSlot)
