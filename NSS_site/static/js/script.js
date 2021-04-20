@@ -6,12 +6,17 @@ $("#submitbtn").click(function () {
     address = $("#address").val();
     contact = $("#contact").val();
     items = $("#items").val();
+    slot_id = $('input[name=slotChoice]:checked').val();
+    // alert(slot_id+'   lmao');
+    // console.log('lmao some');
+    
     const formData = {
         "firstName": firstName,
         "lastName": lastName,
         "address": address,
         "contact": contact,
         "items": items,
+        "slot_id": slot_id,
     };
 
     $.ajax({
@@ -30,7 +35,7 @@ $("#submitbtn").click(function () {
         },
         error: (result) => {
             // console.log(JSON.stringify(result));
-            alert('Server Error!');
+            alert('Server Error!\n'+result.data['message']);
         },
         complete: () => {
             console.log("Ajax request completed");

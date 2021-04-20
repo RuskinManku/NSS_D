@@ -6,3 +6,9 @@
 .home-icon {
     font-size: 4rem;
 }
+
+[type="radio"]:not(:checked), [type="radio"]:checked {
+    position: absolute;
+    opacity: 1;
+    pointer-events: none;
+}

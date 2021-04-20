@@ -21,22 +21,21 @@
       <br>
       <div class="row center"><img class="institute-logo" src="{% static 'img/IIT_Bhilai_logo.png' %}"></img></div>
       <div class="row">
-        <h2 class="header center orange-text">NSS Donation Slots</h2>
+        <h2 class="header center orange-text">NSS Donation Requests</h2>
       </div>
     </div>
   </div>
 
 
   <div class="row">
-
-    {% if slots %}
-
-    
+    {% if requests %}
     <div class="">
       <table class="col s12 l8 offset-l2 striped responsive-table">
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Donor Name</th>
+            <th>Donor Mob</th>
+            <th>Volunteer Name</th>
             <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
@@ -44,27 +43,34 @@
         </thead>
 
         <tbody>
-          {% for slot in slots %}
+        
+        
+
+          {% for req in requests %}
           <tr>
-            <td>{{slot.first_name}} {{slot.last_name}}</td>
-            <td>{{slot.start_time.date}}</td>
-            <td>{{slot.start_time.time}}</td>
-            <td>{{slot.end_time.time}}</td>
+            <td>{{req.first_name}} {{req.last_name}}</td>
+            <td>{{req.phone_number}}</td>
+            <td>{{req.slot.first_name}} {{req.slot.last_name}}</td>
+            <td>{{req.slot.start_time.date}}</td>
+            <td>{{req.slot.start_time.time}}</td>
+            <td>{{req.slot.end_time.time}}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-    </div>
+
     {% else %}
 
     <center>
-    <p>
-      No slots available.
-    </p>
-  </center>
-    
+        <p>
+          No requests available.
+        </p>
+      </center>
 
     {% endif %}
+
+    </div>
+
 
   </div>
 

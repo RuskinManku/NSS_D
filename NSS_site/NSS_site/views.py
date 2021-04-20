@@ -5,15 +5,25 @@ from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import DonationRequest, VolunteerSlot
+from sendsms import send_sms
 
-from datetime import datetime
+from datetime import datetime, tzinfo
 import json
+import pytz
 
+
+def bad_request(message):
+    response = HttpResponse(json.dumps({'message': message}), 
+        content_type='application/json')
+    response.status_code = 400
+    return response
 
 def getDateTimeFromString(dateStr, timeStr):
     datetimeString = dateStr + ' ' + timeStr
     print(f'datetimeString : {datetimeString}')
+    timezone = pytz.timezone("Asia/Kolkata")
     out = datetime.strptime(datetimeString, "%b %d, %Y %I:%M %p")
+    # out = timezone.localize(out)
     print(f'Strifed : {out}')
     return out
 
@@ -33,7 +43,17 @@ def login(request):
 
 @csrf_exempt
 def form(request):
-    return render(request, 'form.html')
+    slots = VolunteerSlot.objects.filter(start_time__gte=datetime.now())
+    
+    for slot in slots:
+        print('\n\n')
+        print(slot.first_name + ' ' + slot.last_name)
+        print(slot.start_time.date)
+        print(slot.start_time)
+        print(slot.start_time.time)
+        print('\n---------------------------------')
+
+    return render(request, 'form.html', {'slots':slots})
 
 # Handle ajax request
 @csrf_exempt
@@ -48,18 +68,35 @@ def submitData(request):
             address = formData['address']
             contact = formData['contact']
             items = formData['items']
-        except:
+            slot_id = int(formData['slot_id'])
+        except Exception as e:
+            print(e)
             print("Invalid Data Received")
 
-        req = DonationRequest(first_name = firstName, last_name = lastName, address = address, phone_number = contact, items = items)
-        req.save()
-        print("Request saved")
+        # print('Slot_id : ', slot_id)
+
+        slot = VolunteerSlot.objects.get(slot_id=slot_id)
+        req = DonationRequest(slot=slot, first_name = firstName, last_name = lastName, address = address, phone_number = contact, items = items)
         
+        
+        print(f"Sending SMS to {slot.phone_number}")
+        slot_phonenumber=slot.phone_number
+        slot_message=f"{firstName} {lastName} registered for slot on {slot.start_time}. Pickup adress: {address}, Donor Phone number: {contact}"
+        if send_sms(slot_phonenumber,slot_message):
+            print("SMS sent successfully")
+            req.save()
+            print("Request saved")
+            
+        else:
+            print("SMS sending unsucessful")
+            return bad_request('Request unsucessful, Please Try Again')
+            
         response = JsonResponse({
             'formData': formData,
             'message': "Form submitted successfully",
             'redirect': '/success/'
-        })
+            })
+        
         return response
     # return redirect('/success/')
 
@@ -122,5 +159,14 @@ def volunteerSignup(request):
 
 
 def listVolunteerSlots(request):
-    slots = VolunteerSlot.objects.filter('start_time__gte'==datetime.now())
-    return JsonResponse(slots)
+    print('sadkjh a : ')
+    slots = VolunteerSlot.objects.filter(start_time__gte=datetime.now())
+
+    return render(request, 'slot_table.html', {'slots':slots})
+
+
+def listRequests(request):
+    # print('sadkjh a : ')
+    requests = DonationRequest.objects.filter(slot__start_time__gte=datetime.now())
+
+    return render(request, 'requests_table.html', {'requests':requests})

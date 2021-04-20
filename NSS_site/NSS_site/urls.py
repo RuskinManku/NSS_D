@@ -30,8 +30,8 @@ urlpatterns = [
     path('details/<int:id_no>/', views.details, name='details'),
     path('volunteer_page/', views.volunteerPage, name='volunteerPage'),
     path('volunteer_signup/', views.volunteerSignup, name='volunteerSignup'),
-    path('vslots_list/', views.listVolunteerSlots, name='listVolunteerSlots'),
     path('volunteer_submitrequest/', views.volunteerSubmitData, name='volunteerSubmitData'),
     path('volunteer_signup_success/', views.volunteerSuccess, name='volunteerSuccess'),
     path('volunteer_slots/', views.listVolunteerSlots, name='listVolunteerSlots'),
+    path('request_list/', views.listRequests, name='listRequests'),
 ]
