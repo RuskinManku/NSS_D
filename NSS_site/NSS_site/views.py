@@ -1,5 +1,6 @@
 from django.views.decorators import csrf
 from NSS_site.forms import LoginForm
+from django.contrib.auth import logout
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http.response import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -142,6 +143,11 @@ def list(request):
     context = {'donation_request_list': donation_request_list }
     return render(request, 'list.html', context)
 
+
+def signStaffOut(request):
+    logout(request)
+    return render(request, 'index.html')
+
 @staff_member_required
 def volunteerPage(request):
     return render(request, 'volunteer_page.html')
@@ -170,3 +176,6 @@ def listRequests(request):
     requests = DonationRequest.objects.filter(slot__start_time__gte=datetime.now())
 
     return render(request, 'requests_table.html', {'requests':requests})
+
+def loginPage(request):
+    return render(request, 'login.html')

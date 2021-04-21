@@ -34,4 +34,6 @@ urlpatterns = [
     path('volunteer_signup_success/', views.volunteerSuccess, name='volunteerSuccess'),
     path('volunteer_slots/', views.listVolunteerSlots, name='listVolunteerSlots'),
     path('request_list/', views.listRequests, name='listRequests'),
+    path('loginPage/',views.loginPage, name='loginPage'),
+    path('logout/', views.signStaffOut, name='signStaffOut'),
 ]

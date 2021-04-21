@@ -1,40 +1,27 @@
 <html>
-   <body>
-      
-      <form name = "form" action = "{% url 'login' %}" 
-         method = "POST" >{% csrf_token %}
-         
-         <div style = "max-width:470px;">
-            <center> 
-               <input type = "text" style = "margin-left:20%;" 
-                  placeholder = "Identifiant" name = "username" />
-            </center>
-         </div>
-			
-         <br>
-         
-         <div style = "max-width:470px;">
-            <center>
-               <input type = "password" style = "margin-left:20%;" 
-                  placeholder = "password" name = "password" />
-            </center>
-         </div>
-			
-         <br>
-         
-         <div style = "max-width:470px;">
-            <center> 
+
+<head>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  {% load static %}
+   <link rel="stylesheet" href="{% static 'css/loginPage.css' %}">
+  <title>Sign in</title>
+</head>
+
+<body>
+  <div class="main">
+    <p class="sign" align="center">Sign in</p>
+    <form class="form1">
+      <input class="un " type="text" align="center" placeholder="Username">
+      <input class="pass" type="password" align="center" placeholder="Password">
+      <a class="submit" align="center">Sign in</a>
+      <!-- <p class="forgot" align="center"><a href="#">Forgot Password?</p> -->
             
-               <button style = "border:0px; background-color:#4285F4; margin-top:8%;
-                  height:35px; width:80%;margin-left:19%;" type = "submit" 
-                  value = "Login" >
-                  <strong>Login</strong>
-               </button>
-               
-            </center>
-         </div>
-         
-      </form>
-      
-   </body>
+                
+    </div>
+     
+</body>
+
 </html>
